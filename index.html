@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متابعة تقدم الفرق</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                
+                <div class="app-title-box">
+                    <h2 id="sidebar-app-title" data-i18n="appTitle">لوحة الإنتاج</h2>
+                    <span id="sidebar-app-subtitle" data-i18n="appSubtitle">متابعة المشروع</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" id="nav-tasks">
+                    <span class="nav-icon">≡</span>
+                    <span class="nav-text" data-i18n="navTasks">المهام</span>
+                </a>
+                <a href="#" class="nav-item" id="nav-report">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text" data-i18n="navReport">التقرير</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="global-progress-label" data-i18n="globalProgress">الإنجاز الكلي</div>
+                <div class="global-progress-track">
+                    <div class="global-progress-fill" id="global-progress-fill"></div>
+                </div>
+                <div class="global-progress-text" id="global-progress-text">0%</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            
+            <!-- Existing Tool Container (Kanban Boards) -->
+            <div id="tool-container">
+                <div class="header">
+                    <div class="header-top">
+                        <div>
+                            <h1 id="app-title">متابعة تقدم الفرق</h1>
+                            <p id="app-subtitle">تزامن مباشر لتقدم الفرق النشطة</p>
+                        </div>
+                        <div class="header-controls">
+                            <button id="lang-toggle">EN</button>
+                            <button id="theme-toggle">🌙 الوضع الداكن</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-controls">
+                    <input type="text" id="new-team-input" placeholder="أدخل اسم الفريق الجديد...">
+                    <button id="add-team-btn">إنشاء فريق</button>
+                    <!-- <label for="import-data-file" class="secondary-btn" id="import-data-label"> -->
+                        <!-- <span data-i18n="importData">📂 رفع ملف</span> -->
+                        <!-- <input type="file" id="import-data-file" accept=".json" style="display: none;"> -->
+                    </label>
+                </div>
+
+                <div id="dynamic-teams-container"></div>
+            </div>
+
+            <!-- New Report Container -->
+            <div id="report-container" style="display: none;">
+                <div class="header">
+                    <div class="header-top">
+                        <div>
+                            <h1 data-i18n="reportTitle">تقرير الممول</h1>
+                            <p data-i18n="reportSubtitle">ملخص تقدم المشروع والأقسام</p>
+                        </div>
+                        <!-- NEW: Print Button -->
+                        <div class="header-controls">
+                            <button id="print-report-btn" class="secondary-btn" data-i18n="printReport">🖨️ طباعة التقرير</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Report Statistics Dashboard -->
+                <div class="report-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="report-total-tasks">0</div>
+                        <div class="stat-label" data-i18n="totalTasksReport">إجمالي المهام</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="report-completed-tasks">0</div>
+                        <div class="stat-label" data-i18n="completedTasksReport">المهام المنجزة</div>
+                    </div>
+                    <div class="stat-card highlight-stat">
+                        <div class="stat-value" id="report-global-progress">0%</div>
+                        <div class="stat-label" data-i18n="globalProgressReport">الإنجاز الكلي</div>
+                    </div>
+                </div>
+
+                <!-- List of Dynamic Team Progress Bars -->
+                <div class="report-teams-list" id="report-teams-list"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Right-click Context Menu -->
+    <ul id="context-menu" class="context-menu">
+        <li id="ctx-notes">📝 <span data-i18n="notes">ملاحظات</span></li>
+        <li id="ctx-edit">✏️ <span data-i18n="edit">تعديل</span></li>
+        <li id="ctx-delete" class="ctx-danger">🗑️ <span data-i18n="delete">حذف</span></li>
+    </ul>
+
+    <!-- Notes Modal -->
+    <div id="notes-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-task-title">ملاحظة المهمة</h3>
+                <button id="modal-close-btn" class="modal-close">✕</button>
+            </div>
+            <textarea id="modal-note-text" placeholder="اكتب ملاحظتك هنا..."></textarea>
+            <div class="modal-footer">
+                <button id="modal-save-btn" class="modal-save-btn" data-i18n="saveNote">حفظ الملاحظة</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
